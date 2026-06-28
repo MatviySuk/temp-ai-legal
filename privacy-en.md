@@ -1,7 +1,7 @@
 # Privacy Policy
 
-**Effective date:** 2026-06-17
-**Last updated:** 2026-06-17
+**Effective date:** June 26, 2026
+**Last updated:** June 26, 2026
 
 This Privacy Policy explains how Matvii Suk ("we", "us") collects, uses, and protects personal data when you use the **temp-ai** mobile application ("the App"). The App is distributed worldwide via Apple's App Store.
 
@@ -35,8 +35,15 @@ We collect only what the App needs to function. We do not sell or rent your data
 ### 2.3 Location
 - **Coarse-grained location coordinates** — only when you grant location permission and only for the purpose of triggering reminders when you arrive at a place you've saved (e.g., "remind me to buy milk when I'm at the supermarket"). Coordinates are processed on-device. We do not store your live location on our servers.
 
-### 2.4 Voice and audio
-- The App's AI assistant performs **all voice processing on your device** using an embedded language model. Audio is captured by the microphone, transcribed locally, processed locally, and discarded. Audio recordings are never transmitted to our servers or to any third party.
+### 2.4 Voice and AI processing
+
+The App's AI assistant supports two modes; you choose one when you first enable AI in the app and you can switch between them anytime in **Settings → AI mode**.
+
+**§2.4a — On-device mode (default).** Audio is captured by the microphone, transcribed locally by Apple's on-device speech recogniser, and processed by an embedded language model that runs entirely on your device. Audio recordings, the transcribed text, and the model's responses **never leave your device**. Nothing is transmitted to our servers or to any third party. The App works offline in this mode.
+
+**§2.4b — Cloud mode (opt-in).** Audio is still captured and transcribed locally by Apple's on-device speech recogniser — **your voice does not leave your device** even in cloud mode. The transcribed text of your command, together with the context the App passes to the AI (the names and IDs of your places, categories, tasks, expenses, and group members as needed for the requested action — but **not** the latitude/longitude coordinates of your saved places, which stay on the device), is then sent over HTTPS to a Supabase Edge Function we operate, which forwards the request to **Google's Gemini API** for processing and returns the structured response. We do not send your Google account, contact details, or any identifier that would let Google link the request back to your real-world identity. For each request we log only the model name, input/output token counts, and latency for billing reconciliation; **we do not store the text of your commands or the AI's responses**. When a request fails, we log a sanitised diagnostic snippet (HTTP status, model name, error class — never your command text) for up to **30 days** to triage incidents, after which it is automatically deleted. Our Gemini API access is a paid (billing-enabled) tier, under which Google does not use your command text to train its models; Google's processing is otherwise subject to its own terms — see §4 for the link. Cloud mode requires an internet connection.
+
+Cloud mode is a feature you control. You can disable it at any time by switching back to On-device mode in Settings; once disabled, no further requests are made to Google for AI processing.
 
 ### 2.5 Diagnostic and crash data
 - If a crash or non-fatal error occurs, anonymous technical details (stack trace, device model, OS version) are sent to Sentry to help us fix the bug. Crash data is not linked to your account.
@@ -61,6 +68,7 @@ We process your personal data under the following lawful bases:
 | Sharing your content with other members of groups you join | Contract (Art. 6(1)(b)) |
 | Diagnosing crashes via Sentry | Legitimate interest (Art. 6(1)(f)) — operating a stable service |
 | Voice processing on-device | Performed locally on your device; no transfer to us occurs |
+| Cloud AI processing (when you opt in to Cloud mode) | Consent (Art. 6(1)(a)) — your in-app selection of Cloud mode is the lawful basis; withdraw by switching back to On-device mode |
 
 ---
 
@@ -71,6 +79,7 @@ We share your personal data only with the service providers required to operate 
 - **Supabase Inc.** — database, authentication, and synchronization. See [Supabase's privacy policy](https://supabase.com/privacy).
 - **Sentry / Functional Software, Inc.** — crash and error reporting. See [Sentry's privacy policy](https://sentry.io/privacy/).
 - **Apple Inc.** — Sign in with Apple authentication. We never see your Apple ID password. Apple may share a privaterelay.appleid.com address if you choose "Hide My Email". See [Apple's privacy policy](https://www.apple.com/legal/privacy/).
+- **Google LLC** — **only when you opt in to Cloud mode for the AI assistant** (Settings → AI mode → Cloud). Each cloud AI request transmits the transcribed text of your command plus the relevant context the App needs the AI to act on (place / category / task / expense / group-member names and IDs from your group). Voice audio is never sent. Google processes the request via the Gemini API on our **paid (billing-enabled) tier, under which Google does not use your prompts or responses to train or improve its models** and retains them only briefly for abuse detection. We never share your Google account or any other identifier with Google. See [Google's Generative AI terms — Paid Services data use](https://ai.google.dev/gemini-api/terms#data-use-paid) and [Google's general privacy policy](https://policies.google.com/privacy).
 
 Where your data is processed outside your country of residence, we rely on the legal mechanisms required by applicable data-protection law (for example, Standard Contractual Clauses for transfers from the EU/UK).
 
@@ -130,7 +139,7 @@ Apple's Sign in with Apple revocation (Settings → Apple ID → Sign in with Ap
 
 ## 8. Security
 
-We protect your data with industry-standard measures:
+We protect your data with reasonable, appropriate measures:
 - **Encryption in transit** — all communication with our backend uses HTTPS/TLS.
 - **Encryption at rest** — data stored by our backend provider (Supabase) is encrypted at rest by default.
 - **Authentication** — Sign in with Apple, plus row-level security policies that ensure each user can only access data from groups they belong to.
@@ -142,9 +151,9 @@ No system is 100% secure. If we become aware of a security incident affecting yo
 
 ## 9. Children
 
-The App is rated 4+ in the App Store but is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, contact us at matvii.suk.se@gmail.com and we will delete the information promptly.
+The App is intended for users aged 13 and over and is not directed at children under 13. We do not knowingly collect personal information from children under 13. The optional Cloud mode (Google's Gemini API) additionally requires you to confirm you are 18 or older before it can be enabled, as Google's Gemini API terms require. If you believe a child under 13 has provided us with personal information, contact us at matvii.suk.se@gmail.com and we will delete it promptly.
 
-For the EU, the digital-consent age varies by member state (13–16). If you are below the age of digital consent in your country, please obtain a parent's or guardian's permission before using the App.
+For the EU/EEA, the age of digital consent varies by member state (13–16). If you are below the age of digital consent in your country, please obtain a parent's or guardian's permission before using the App.
 
 ---
 

@@ -1,7 +1,7 @@
 # Terms of Service
 
-**Effective date:** 2026-06-17
-**Last updated:** 2026-06-17
+**Effective date:** June 26, 2026
+**Last updated:** June 26, 2026
 
 These Terms of Service ("Terms") govern your use of the **temp-ai** mobile application ("the App") provided by Matvii Suk ("we", "us").
 
@@ -13,7 +13,7 @@ If you have questions, contact us at **matvii.suk.se@gmail.com**.
 
 ## 1. The Service
 
-temp-ai is a voice-controlled household assistant for managing shared expenses, tasks, shopping lists, and places. Groups of users (e.g., families, roommates, partners) can share data within a group. The App processes voice commands locally on your device using an embedded language model.
+temp-ai is a voice-controlled household assistant for managing shared expenses, tasks, shopping lists, and places. Groups of users (e.g., families, roommates, partners) can share data within a group. The App processes voice commands either entirely on your device (default) or via Google's Gemini API in optional Cloud mode — see §5 for details.
 
 The App is provided **as-is**, free of charge, with no warranty (see §10).
 
@@ -58,9 +58,12 @@ We do not sell your content. We do not use it for advertising or analytics. We d
 
 ## 5. AI / voice features
 
-The App includes an AI assistant that processes voice commands **entirely on your device**. The model runs locally; audio is captured, transcribed, and interpreted without leaving your device.
+The App includes an AI assistant with two processing modes that you choose between in **Settings → AI mode**:
 
-The AI may occasionally misinterpret commands or produce unexpected results. You are responsible for verifying that any action the AI proposes — adding an expense, creating a task, modifying a shopping list — is what you actually intended. We recommend carefully reviewing AI-suggested changes before confirming destructive actions (deletions).
+- **On-device mode (default).** Voice is captured, transcribed, and interpreted entirely on your device by an embedded language model. Nothing about the request leaves your device.
+- **Cloud mode (optional).** Voice is still transcribed on-device by Apple's speech recogniser; the resulting text plus the App context needed to act on it (place / category / task / expense names from your group) is sent over HTTPS to a Supabase Edge Function we operate, which calls **Google's Gemini API** to produce the response. Cloud mode is subject to **Google's Generative AI terms** (https://ai.google.dev/gemini-api/terms); by enabling Cloud mode you agree to those terms in addition to these. We use a paid (billing-enabled) Gemini API tier, under which Google does not use your prompts or responses to train its models. Cloud mode is available only to users aged 18 or older, as Google's Gemini API terms require; you confirm your age in-app before enabling it. We may apply daily usage limits to bound operating costs. We may also disable Cloud mode globally at any time without notice; the App will automatically fall back to On-device mode availability.
+
+The AI may occasionally misinterpret commands or produce unexpected results in either mode. You are responsible for verifying that any action the AI proposes — adding an expense, creating a task, modifying a shopping list — is what you actually intended. We recommend carefully reviewing AI-suggested changes before confirming destructive actions (deletions).
 
 We make no warranty about the accuracy, completeness, or fitness-for-purpose of AI-generated content.
 
@@ -84,7 +87,8 @@ You agree not to invite people to your group without their consent. The invite c
 Our handling of your personal data is described in our [Privacy Policy](./privacy-en.md). By using the App, you confirm you have read and understood the Privacy Policy.
 
 Key points:
-- Voice processing happens on your device — audio never leaves it.
+- **Voice audio always stays on your device** — even in Cloud mode, speech recognition runs locally and only the resulting text command is sent over the network.
+- **Cloud mode** (when you opt in) sends transcribed text + App context to Google's Gemini API via our server; it can be disabled at any time in Settings.
 - Account email and content are stored on Supabase backend infrastructure.
 - Crash diagnostics are sent to Sentry (no PII).
 - You can delete your account at any time in the App.
@@ -108,6 +112,8 @@ You may delete your account at any time via **Settings → Delete Account**. Del
 
 We may discontinue, suspend, or change the App at any time without prior notice and without any obligation to provide a means of exporting your data.
 
+temp-ai is operated by an individual developer, not a company, on a best-effort basis. We have no obligation to provide support, maintenance, updates, or continued availability of the App or any feature (including Cloud mode), and we may stop operating it entirely at any time.
+
 We may also push updates to the App that change its features.
 
 ---
@@ -130,7 +136,7 @@ You use the App at your own risk.
 
 To the maximum extent permitted by applicable law, in no event shall Matvii Suk be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, use, goodwill, or other intangible losses, arising out of or related to your use of the App.
 
-Our total cumulative liability to you for any claim arising from or related to the App shall not exceed **€50** (fifty euros) or the equivalent in your local currency.
+Our total cumulative liability to you for any claim arising from or related to the App shall not exceed the total amount you have paid us for the App in the 12 months before the claim — which, because the App is currently free, is **€0** — and in any case shall not exceed **€50** (fifty euros) or the equivalent in your local currency.
 
 Some jurisdictions (notably the EU and some US states) do not allow the exclusion of certain warranties or the limitation of certain damages. In such jurisdictions, our liability is limited to the maximum extent permitted by law.
 
